@@ -4,7 +4,7 @@ metadata:
   name: devops-cicd
   labels:
     app: devops-cicd
-    release-date: RELEASE-DATE
+    release-date: s1745922178
   namespace: devops-cicd
 spec:
   replicas: 1
@@ -16,7 +16,7 @@ spec:
       labels:
         app: devops-cicd
         svc: frontend
-        release-date: RELEASE-DATE
+        release-date: s1745922178
     spec:
       containers:
       - name: devops-cicd-server
