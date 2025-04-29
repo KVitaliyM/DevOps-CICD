@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: devops-cicd
+  labels:
+    app: devops-cicd
+    release-date: RELEASE-DATE
+  namespace: devops-cicd
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: devops-cicd
+  template:
+    metadata:
+      labels:
+        app: devops-cicd
+        svc: frontend
+        release-date: RELEASE-DATE
+    spec:
+      containers:
+      - name: devops-cicd-server
+        image: kvitaliym/devops-cicd:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: service-devops
+  labels:
+    app: devops-cicd
+  namespace: devops-cicd
+spec:
+  type: LoadBalancer
+  selector:
+    app: devops-cicd
+    svc: frontend
+  ports:
+  - port: 12345
+    targetPort: 8000
+  externalIPs:
+  - 10.0.2.15
